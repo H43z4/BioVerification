@@ -22,4 +22,7 @@ Global
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {78625A45-AF26-4705-9749-A3371E3AC5FE}
 	EndGlobalSection
+	GlobalSection(SharedMSBuildProjectFiles) = preSolution
+		..\SharedFeatures\SharedFeatures.projitems*{30debc9f-5a9a-4832-a79b-e77b6923aae0}*SharedItemsImports = 5
+	EndGlobalSection
 EndGlobal
