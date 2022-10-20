@@ -11,7 +11,7 @@ build_image:
   stage: build
 
   tags:
-    - mvrs-revamp-staging-apigateway   
+    - mvrs-revamp-biometric
 
   script:
     - echo "Compiling the code..."
