@@ -6,7 +6,7 @@ EXPOSE 80
 
 FROM mcr.microsoft.com/dotnet/sdk:6.0 AS build
 WORKDIR /src
-COPY ["Biometric/Biometric.csproj", "Biometric/"]
+COPY ["Biometric.csproj", "Biometric/"]
 COPY . .
 WORKDIR "/src/Biometric"
 RUN dotnet build "Biometric.csproj" -c Release -o /app/build
