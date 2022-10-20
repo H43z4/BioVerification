@@ -7,10 +7,6 @@ EXPOSE 80
 FROM mcr.microsoft.com/dotnet/sdk:6.0 AS build
 WORKDIR /src
 COPY ["Biometric/Biometric.csproj", "Biometric/"]
-COPY ["AuthorizationService/AuthorizationService.csproj", "AuthorizationService/"]
-COPY ["Database/Database.csproj", "Database/"]
-COPY ["SharedLib/SharedLib.csproj", "SharedLib/"]
-RUN dotnet restore "Biometric/Biometric.csproj"
 COPY . .
 WORKDIR "/src/Biometric"
 RUN dotnet build "Biometric.csproj" -c Release -o /app/build

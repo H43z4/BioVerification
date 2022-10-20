@@ -17,7 +17,7 @@ build_image:
     - echo "Compiling the code..."
     - git submodule sync --recursive
     - git submodule update --init --recursive
-    - docker build -t mvrs-revamp-staging-apigateway .
+    - docker build -t mvrs-revamp-biometric .
     - echo "Compile complete."
 
     - echo "List all images..."
