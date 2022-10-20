@@ -1,4 +1,4 @@
 [submodule "mvrs-revamp-sharedfeatures"]
 	path = mvrs-revamp-sharedfeatures
-	url = https://gitlab.pitb.gov.pk/dg-faisal-yousaf/excise/mvrs_revamp/mvrs-revamp-sharedfeatures.git
+	url = ../mvrs-revamp-sharedfeatures.git
 	branch = master
