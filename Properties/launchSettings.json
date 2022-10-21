@@ -33,5 +33,11 @@
       "applicationUrl": "http://0.0.0.0:6010",
       "sslPort": 0
     }
+  },
+  "Docker": {
+    "commandName": "Docker",
+    "launchBrowser": true,
+    "launchUrl": "{Scheme}://{ServiceHost}:{ServicePort}/swagger",
+    "publishAllPorts": true
   }
 }
