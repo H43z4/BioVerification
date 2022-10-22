@@ -1,6 +1,8 @@
 using AuthorizationService.JwtStatelessToken;
 using Biometric.Services;
 using Database;
+using Microsoft.AspNetCore.Mvc;
+using SharedLib.APIs;
 using SharedLib.Interfaces;
 using System.Net;
 
@@ -20,6 +22,12 @@ builder.Services
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+
+builder.Services.Configure<ApiBehaviorOptions>(o =>
+{
+    o.InvalidModelStateResponseFactory = actionContext =>
+        new BadRequestObjectResult(ApiResponse.GetValidationErrorResponse(ApiResponseType.VALIDATION_ERROR, actionContext.ModelState.Values.SelectMany(v => v.Errors).Select(x => x.ErrorMessage), null, null, null));
+});
 
 var app = builder.Build();
 
