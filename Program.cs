@@ -14,7 +14,9 @@ builder.Services.AddStatelessTokenAuthentication();
 
 builder.Services.AddTransient<IBiometricService, BiometricService>();
 
-builder.Services.AddControllers().AddNewtonsoftJson();
+builder.Services
+    .AddControllers(options => options.SuppressImplicitRequiredAttributeForNonNullableReferenceTypes = true)
+    .AddNewtonsoftJson();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
