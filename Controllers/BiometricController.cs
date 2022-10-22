@@ -38,7 +38,7 @@ namespace Biometric.Controllers
             return ApiResponse.GetApiResponse(ApiResponseType.FAILED, null, Constants.NOT_FOUND_MESSAGE);
         }
 
-        [HttpGet(Name = "SaveBiometricInfo")]
+        [HttpPost]
         public async Task<ApiResponse> SaveBiometricInfo(InputModel inputModel)
         {
             this.biometricService.VwUser = this.User;
