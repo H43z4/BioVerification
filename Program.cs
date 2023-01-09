@@ -2,6 +2,7 @@ using AuthorizationService.JwtStatelessToken;
 using Biometric.Services;
 using Database;
 using Microsoft.AspNetCore.Mvc;
+using Representative.Services;
 using SharedLib.APIs;
 using SharedLib.Interfaces;
 using System.Net;
@@ -15,6 +16,7 @@ builder.Services.AddScoped<ITokenService, TokenService>();
 builder.Services.AddStatelessTokenAuthentication();
 
 builder.Services.AddTransient<IBiometricService, BiometricService>();
+builder.Services.AddTransient<IRepresentativeService, RepresentativeService>();
 
 builder.Services
     .AddControllers(options => options.SuppressImplicitRequiredAttributeForNonNullableReferenceTypes = true)
