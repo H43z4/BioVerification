@@ -6,6 +6,7 @@ using SharedLib.APIs;
 using SharedLib.Common;
 using SharedLib.Security;
 using Models.ViewModels.Biometric;
+using Biometric.ViewModels;
 
 namespace Biometric.Controllers
 {
@@ -15,6 +16,7 @@ namespace Biometric.Controllers
     public class BiometricController : ControllerBase
     {
         private readonly IBiometricService biometricService;
+        private readonly BiometricTaskList biometricTaskList;
         public VwUser User
         {
             get
@@ -23,9 +25,10 @@ namespace Biometric.Controllers
             }
         }
 
-        public BiometricController(IBiometricService biometricService)
+        public BiometricController(IBiometricService biometricService, BiometricTaskList biometricTaskList)
         {
             this.biometricService = biometricService;
+            this.biometricTaskList = biometricTaskList;
         }
 
         //[HttpGet(Name = "GetVehicleInfo")]
@@ -96,13 +99,26 @@ namespace Biometric.Controllers
 
             if (ds.Tables[0].Rows[0][0].ToString() == "0")
             {
+                var biometricIntimationId = Convert.ToInt64(ds.Tables[0].Rows[0][2].ToString());
+
+                this.biometricTaskList.Tasks.TryAdd(biometricIntimationId, biometricIntimationId);
+
                 apiResponseType = ApiResponseType.SUCCESS;
                 msg = Constants.DATA_SAVED_MESSAGE;
             }
-            else
+            else if (ds.Tables[0].Rows[0][0].ToString() == "1")
             {
                 apiResponseType = ApiResponseType.FAILED;
-                msg = Constants.DATA_NOT_SAVED_MESSAGE;
+                msg = ds.Tables[0].Rows[0][1].ToString();
+            }
+            else if (ds.Tables[0].Rows[0][0].ToString() == "2")
+            {
+                apiResponseType = ApiResponseType.FAILED;
+                msg = ds.Tables[0].Rows[0][1].ToString();
+            }
+            else
+            {
+                throw new InvalidDataException();
             }
 
             return ApiResponse.GetApiResponse(apiResponseType, null, msg);

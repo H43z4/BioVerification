@@ -2,7 +2,6 @@
 using Models.ViewModels.Identity;
 using SharedLib.Interfaces;
 using System.Data;
-using Microsoft.Data.SqlClient;
 using Models.ViewModels.Biometric;
 
 namespace Biometric.Services
@@ -10,7 +9,9 @@ namespace Biometric.Services
     public interface IBiometricService : ICurrentUser
     {
         Task<DataSet> GetVehicleInfo(VwVehicleInfoIM vwVehicleInfoIM);
+        Task<DataSet> GetBiometricIntimation();
         Task<DataSet> SaveBiometricInfo(VwBiometricInfo vwBiometricInfo);
+        Task<DataSet> SaveBiometricInfo(long biometricIntimationId);
     }
 
     public class BiometricService : IBiometricService
@@ -25,20 +26,26 @@ namespace Biometric.Services
 
         #region public-Methods
 
-
         public async Task<DataSet> GetVehicleInfo(VwVehicleInfoIM vwVehicleInfoIM)
         {
             Dictionary<string, object> paramDict = new Dictionary<string, object>();
 
-            paramDict.Add("@CNIC", vwVehicleInfoIM.RegNo);
             paramDict.Add("@ApplicationId", vwVehicleInfoIM.MvrsTransId);
-            paramDict.Add("@UserId", this.VwUser.UserId);
+            paramDict.Add("@CNIC", vwVehicleInfoIM.CNIC);
+            paramDict.Add("@RegNo", vwVehicleInfoIM.RegNo);
 
             var ds = await this.dbHelper.GetDataSetByStoredProcedure("[Biometric].[GetVehicleInfo]", paramDict);
 
             return ds;
         }
-        
+
+        public async Task<DataSet> GetBiometricIntimation()
+        {
+            var ds = await this.dbHelper.GetDataSetByStoredProcedure("[Biometric].[GetBiometricIntimation]", null);
+
+            return ds;
+        }
+
         public async Task<DataSet> SaveBiometricInfo(VwBiometricInfo vwBiometricInfo)
         {
             Dictionary<string, object> paramDict = new Dictionary<string, object>();
@@ -48,10 +55,22 @@ namespace Biometric.Services
             paramDict.Add("@RegNo", vwBiometricInfo.RegNo);
             paramDict.Add("@NadraTransId", vwBiometricInfo.NadraTransId);
             paramDict.Add("@NadraFranchiseId", vwBiometricInfo.NadraFranchiseId);
-            paramDict.Add("@IsVerified", vwBiometricInfo.IsVerified);
+            paramDict.Add("@IsVerified", true);
             paramDict.Add("@UserId", this.VwUser.UserId);
 
-            var ds = await this.dbHelper.GetDataSetByStoredProcedure("[Biometric].[SaveBiometricInfo]", paramDict);
+            var ds = await this.dbHelper.GetDataSetByStoredProcedure("[Biometric].[SaveBiometricIntimation]", paramDict);
+
+            return ds;
+        }
+        
+        public async Task<DataSet> SaveBiometricInfo(long biometricIntimationId)
+        {
+            Dictionary<string, object> paramDict = new Dictionary<string, object>();
+
+            paramDict.Add("@BiometricIntimationId", biometricIntimationId);
+            //paramDict.Add("@UserId", this.VwUser.UserId);
+
+            var ds = await this.dbHelper.GetDataSetByStoredProcedure("[Biometric].[OnBiometricIntimation]", paramDict);
 
             return ds;
         }
