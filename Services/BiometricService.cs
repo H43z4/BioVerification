@@ -10,7 +10,7 @@ namespace Biometric.Services
     {
         Task<DataSet> GetVehicleInfo(VwVehicleInfoIM vwVehicleInfoIM);
         Task<DataSet> GetBiometricIntimation();
-        Task<DataSet> SaveBiometricInfo(VwBiometricInfo vwBiometricInfo);
+        Task<DataSet> SaveBiometricInfo(ViewModels.VwBiometricInfo vwBiometricInfo);
         Task<DataSet> SaveBiometricInfo(long biometricIntimationId);
     }
 
@@ -46,7 +46,7 @@ namespace Biometric.Services
             return ds;
         }
 
-        public async Task<DataSet> SaveBiometricInfo(VwBiometricInfo vwBiometricInfo)
+        public async Task<DataSet> SaveBiometricInfo(ViewModels.VwBiometricInfo vwBiometricInfo)
         {
             Dictionary<string, object> paramDict = new Dictionary<string, object>();
 

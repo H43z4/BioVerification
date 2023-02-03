@@ -88,7 +88,7 @@ namespace Biometric.Controllers
         }
 
         [HttpPost]
-        public async Task<ApiResponse> SaveBiometricInfo(VwBiometricInfo vwBiometricInfo)
+        public async Task<ApiResponse> SaveBiometricInfo(ViewModels.VwBiometricInfo vwBiometricInfo)
         {
             this.biometricService.VwUser = this.User;
 
