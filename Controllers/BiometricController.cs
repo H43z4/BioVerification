@@ -62,7 +62,7 @@ namespace Biometric.Controllers
 
             var ds = await this.biometricService.GetVehicleInfo(vwVehicleInfoIM);
 
-            var vehicleInfoList = ds.Tables[0].ToList<VwVehicleInfo>();
+            var vehicleInfoList = ds.Tables[0].ToList<Biometric.ViewModels.VwVehicleInfo>();
 
             var vehicleInfo = vehicleInfoList.Count > 0 ? vehicleInfoList.FirstOrDefault() : null;
 
