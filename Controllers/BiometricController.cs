@@ -106,6 +106,11 @@ namespace Biometric.Controllers
                 apiResponseType = ApiResponseType.SUCCESS;
                 msg = Constants.DATA_SAVED_MESSAGE;
             }
+            else if (ds.Tables[0].Rows[0][0].ToString() == "401")
+            {
+                apiResponseType = ApiResponseType.FAILED;
+                msg = Constants.UN_AUTHORIZED_MESSAGE;
+            }
             else if (ds.Tables[0].Rows[0][0].ToString() == "1")
             {
                 apiResponseType = ApiResponseType.FAILED;
